@@ -1,11 +1,12 @@
 package com.labbox.lab.entities;
 
-import jakarta.persistence.*;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +43,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String userName, String userEmail, String userPassword) {
+
+    public User(String userEnrollment, String userName, String userEmail, String userPassword) {
+        this.userEnrollment = userEnrollment;
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPassword = userPassword;

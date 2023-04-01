@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
     public void create(UserRequestDto dto) {
 
         User user = new User(
+                dto.getUserEnrollment(),
                 dto.getUserName().toUpperCase(),
                 dto.getUserEmail().toLowerCase(),
                 dto.getUserPassword()

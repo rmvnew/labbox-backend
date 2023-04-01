@@ -15,5 +15,6 @@ public class UserRequestDto {
     private String userName;
     private String userEmail;
     private String userPassword;
+    private String userEnrollment;
     private Set<Long> rolesId;
 }
