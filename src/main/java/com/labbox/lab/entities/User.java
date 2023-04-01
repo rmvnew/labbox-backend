@@ -1,10 +1,7 @@
 package com.labbox.lab.entities;
 
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -12,8 +9,8 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Builder
 @Setter
-@NoArgsConstructor
 @ToString
 @Table(name = "tb_user")
 public class User {
@@ -43,6 +40,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+
+    public User() {
+    }
 
     public User(String userEnrollment, String userName, String userEmail, String userPassword) {
         this.userEnrollment = userEnrollment;
