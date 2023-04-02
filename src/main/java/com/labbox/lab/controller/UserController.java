@@ -4,8 +4,10 @@ import com.labbox.lab.dto.UserRequestDto;
 import com.labbox.lab.entities.User;
 import com.labbox.lab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,7 @@ public class UserController {
 
 
     @GetMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<User> findAll() {
         return this.userService.findAll();
     }
