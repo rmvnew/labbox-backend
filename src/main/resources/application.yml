@@ -16,8 +16,8 @@ spring:
       hibernate:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-#  jwt:
-#    secret: ${JWT_SECRET}
-#    expiration: ${JWT_EXPIRATION}
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
 server:
   port: ${SERVER_PORT}
