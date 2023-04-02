@@ -27,8 +27,18 @@ public class TokenServiceImpl implements TokenService {
                 .withSubject(user.getUsername())
                 .withClaim("id", user.getUserId())
                 .withExpiresAt(Date.from(LocalDateTime.now()
-                        .plusMinutes(10)
+                        .plusMinutes(30)
                         .toInstant(ZoneOffset.of("-04:00")))
                 ).sign(Algorithm.HMAC256(secret));
+    }
+
+    @Override
+    public String getSubject(String token) {
+
+        return JWT.require(Algorithm.HMAC256(secret))
+                .withIssuer("lab")
+                .build().verify(token)
+                .getSubject();
+
     }
 }
