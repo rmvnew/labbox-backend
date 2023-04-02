@@ -7,6 +7,7 @@ import com.labbox.lab.repository.RolesRepository;
 import com.labbox.lab.repository.UserRepository;
 import com.labbox.lab.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RolesRepository rolesRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void create(UserRequestDto dto) {
 
@@ -31,7 +35,7 @@ public class UserServiceImpl implements UserService {
                 dto.getUserEnrollment(),
                 dto.getUserName().toUpperCase(),
                 dto.getUserEmail().toLowerCase(),
-                dto.getUserPassword()
+                passwordEncoder.encode(dto.getUserPassword())
         );
 
         Set<Role> roles = new HashSet<>();
