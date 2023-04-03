@@ -19,18 +19,19 @@ public class UserController {
     private UserService userService;
 
     @PostMapping()
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void createUser(@RequestBody UserRequestDto dto) {
         this.userService.create(dto);
     }
 
 
     @GetMapping()
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     public List<User> findAll() {
         return this.userService.findAll();
     }
 
-    //    @PreAuthorize("hasAuthority('Admin')")
+    @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     @GetMapping("/{id}")
     public User findById(
             @PathVariable Long id
@@ -39,6 +40,7 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public User updateUser(
             @PathVariable Long id,
             @RequestBody UserRequestDto dto
@@ -48,6 +50,7 @@ public class UserController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteUser(
             @PathVariable Long id
     ) {
