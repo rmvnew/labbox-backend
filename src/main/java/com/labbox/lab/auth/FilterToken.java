@@ -43,7 +43,7 @@ public class FilterToken extends OncePerRequestFilter {
                     user,null,user.getAuthorities()
             );
 
-            System.out.println("Authentication: " + authentication);
+//            System.out.println("Authentication: " + authentication);
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
