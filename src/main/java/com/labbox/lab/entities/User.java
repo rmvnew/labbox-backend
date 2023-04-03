@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -44,6 +45,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Sector> sectors;
 
     public User() {
     }
@@ -57,7 +60,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+//        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return roles.stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
     }
 
     @Override
