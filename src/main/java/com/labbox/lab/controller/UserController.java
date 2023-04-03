@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("users")
 public class UserController {
 
-
     @Autowired
     private UserService userService;
 
@@ -24,8 +23,7 @@ public class UserController {
         this.userService.create(dto);
     }
 
-
-    @GetMapping()
+    @GetMapping("/all")
     @PreAuthorize("hasAuthority('USER') || hasAuthority('ADMIN')")
     public List<User> findAll() {
         return this.userService.findAll();
@@ -47,7 +45,6 @@ public class UserController {
     ) {
         return this.userService.userUpdate(dto, id);
     }
-
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
