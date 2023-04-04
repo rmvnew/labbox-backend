@@ -7,25 +7,24 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "tb_sector")
-public class Sector {
+@Table(name = "tb_room")
+public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "sector_id")
-    private Long sectorId;
+    @Column(name = "room_id")
+    private Long roomId;
 
-    @Column(name = "sector_name")
-    private String sectorName;
+    @Column(name = "room_name")
+    private String roomName;
 
-    @Column(name = "sector_note")
+    @Column(name = "room_note")
     private String note;
 
     @Column(name = "checked")
@@ -35,11 +34,8 @@ public class Sector {
     private LocalDateTime dateOfChecked;
 
     @ManyToOne
-    @JoinColumn(name = "user_id",nullable = false)
-    private User user;
-
-    @OneToMany(mappedBy = "sector")
-    private Set<Room> rooms;
+    @JoinColumn(name = "sector_id",nullable = false)
+    private Sector sector;
 
     @Column(name = "status")
     private boolean status;

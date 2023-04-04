@@ -1,21 +1,17 @@
 package com.labbox.lab.exception;
 
-import org.springframework.http.HttpStatus;
-
 public class CustomException extends RuntimeException {
-    private HttpStatus status;
-    private String message;
+    private ErrorCustom errorCustom;
 
-    public CustomException(HttpStatus status, String message) {
-        this.status = status;
-        this.message = message;
+    public CustomException(ErrorCustom errorCustom) {
+        this.errorCustom = errorCustom;
     }
 
-    public HttpStatus getStatus() {
-        return status;
+    public ErrorModel getStatus() {
+        return new ErrorModel(
+                errorCustom.getHttpStatus(),
+                errorCustom.getCode(),
+                errorCustom.getMessage());
     }
 
-    public String getMessage() {
-        return message;
-    }
 }

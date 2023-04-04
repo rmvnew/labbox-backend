@@ -1,9 +1,10 @@
 package com.labbox.lab.service;
 
 import com.labbox.lab.entities.User;
+import com.labbox.lab.model.TokenModel;
 
 public interface TokenService {
-    String generateToken(User user);
+    TokenModel generateToken(User user);
 
     String getSubject(String token);
 }

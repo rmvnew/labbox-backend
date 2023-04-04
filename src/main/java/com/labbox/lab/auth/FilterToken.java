@@ -1,5 +1,7 @@
 package com.labbox.lab.auth;
 
+import com.labbox.lab.exception.CustomException;
+import com.labbox.lab.exception.ErrorCustom;
 import com.labbox.lab.repository.UserRepository;
 import com.labbox.lab.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,27 +30,31 @@ public class FilterToken extends OncePerRequestFilter {
                                     HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         String token;
+        try {
 
-        var authorizationHeader = request.getHeader("Authorization");
+            var authorizationHeader = request.getHeader("Authorization");
 
-        if(authorizationHeader != null){
+            if (authorizationHeader != null) {
 
-            token = authorizationHeader.replace("Bearer ","");
+                token = authorizationHeader.replace("Bearer ", "");
 
-            var subject = this.tokenService.getSubject(token);
+                var subject = this.tokenService.getSubject(token);
 
-            var user = this.userRepository.findByUserEmail(subject);
+                var user = this.userRepository.findByUserEmail(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(
-                    user,null,user.getAuthorities()
-            );
+                var authentication = new UsernamePasswordAuthenticationToken(
+                        user, null, user.getAuthorities()
+                );
 
 //            System.out.println("Authentication: " + authentication);
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
+            }
+        } catch (Exception ex) {
+            new CustomException(ErrorCustom.UNAUTHORIZED);
         }
 
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
     }
 }
